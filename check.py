@@ -3,7 +3,7 @@ import httplib
 import json
 import time
 url1 = "tile38-write"
-url2 = "0.0.0.0"
+url2 = "127.0.0.1"
 port = 9851
 
 master_not_ready = True
