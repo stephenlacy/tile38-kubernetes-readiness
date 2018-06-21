@@ -10,7 +10,7 @@ master_not_ready = True
 self_not_ready = True
 
 def make_request(url):
-    conn = httplib.client.HTTPConnection(url, port)
+    conn = httplib.HTTPConnection(url, port)
     conn.request("GET", "/server")
     res = conn.getresponse()
     body = res.read().decode('utf-8')
