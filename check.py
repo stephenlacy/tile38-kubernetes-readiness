@@ -1,5 +1,5 @@
 import sys
-import http.client
+import httplib
 import json
 import time
 url1 = "tile38-write"
@@ -10,7 +10,7 @@ master_not_ready = True
 self_not_ready = True
 
 def make_request(url):
-    conn = http.client.HTTPConnection(url, port)
+    conn = httplib.client.HTTPConnection(url, port)
     conn.request("GET", "/server")
     res = conn.getresponse()
     body = res.read().decode('utf-8')
@@ -41,3 +41,4 @@ while self_not_ready:
     except Exception as err:
         # print(err)
         wait()
+
