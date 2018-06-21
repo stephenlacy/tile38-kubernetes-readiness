@@ -1,15 +1,18 @@
 import sys
-import urllib.request
+import http.client
 import json
 import time
-url1 = "http://tile38-write:9851/server"
-url2 = "http://0.0.0.0:9851/server"
+url1 = "tile38-write"
+url2 = "0.0.0.0"
+port = 9851
 
 master_not_ready = True
 self_not_ready = True
 
 def make_request(url):
-    res = urllib.request.urlopen(url)
+    conn = http.client.HTTPConnection(url, port)
+    conn.request("GET", "/server")
+    res = conn.getresponse()
     body = res.read().decode('utf-8')
     return json.loads(body)
 
@@ -25,7 +28,8 @@ while master_not_ready:
         if obj['stats']['num_objects'] > 10:
             master_not_ready = False
             break
-    except:
+    except Exception as err:
+        # print(err)
         wait()
 
 while self_not_ready:
@@ -34,6 +38,6 @@ while self_not_ready:
         if obj['stats']['num_objects'] > 10:
             self_not_ready = False
             break
-    except:
+    except Exception as err:
+        # print(err)
         wait()
-
